@@ -9,4 +9,4 @@ new stores in Scatterville, you decide to divide the houses in 𝑘
 Given the coordinates of the houses in Scatterville, and how many stores you will open, can you calculate where the new stores should be placed?
 # Example
 Consider the following example. Here, three stores will be opened in Scatterville. The first and second clusters contain four houses each, while the third cluster only contains two houses. The stores will be placed at the average x and y coordinate of these clusters.
-![img.png](img.png)
+![img.png](img.png)![img.png](IdeaProjects/AD2324/planning-store-locations/img.png)
