@@ -1,4 +1,4 @@
-**This solution is unfinished.**
+**This solution is finished.**
 
 You are the owner of a new store chain (called Amazing Donuts, or AD for short), and business is running well, so you decide to open up some more stores. You decide to do this in the town of Scatterville, where the houses of all residents are literally scattered around the village.
 
