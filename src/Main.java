@@ -11,6 +11,7 @@ class Main {
      */
     public static Set<Store> donutTime(int n, int k, List<House> houses) {
         int m = n * (n - 1) / 2;
+
         List<Distance> distances = new ArrayList<>(m);
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -18,8 +19,39 @@ class Main {
             }
         }
         UnionFind unionFind = new UnionFind(houses);
-        // TODO
+        Collections.sort(distances, new Comparator<Distance>() {
+            @Override
+            public int compare(Distance o1, Distance o2) {
+                return Long.compare(o1.distance, o2.distance);
+            }
+        });
+        System.out.println(distances);
+        List<Distance> MST = new ArrayList<Distance>();
+        for (Distance d : distances) {
+            //The algorithm initially treats each house as its own cluster (or group).
+            // The goal is to reduce the number of clusters to k by "joining" them.
+            // Hence:
+            if (MST.size() == n - k) break;
+            if (unionFind.join(d.a, d.b)) {
+                MST.add(d);
+            }
+        }
 
+        System.out.println(MST);
+
+        Set<Store> stores = new HashSet<Store>();
+        for (List<House> cluster : unionFind.clusters()) {
+            long c = 0, sumX = 0, sumY = 0;
+            for (House house : cluster) {
+                c++;
+                sumX += house.x;
+                sumY += house.y;
+            }
+            // Adding 1e-6 to test if it's accepted
+            stores.add(new Store(sumX * 1.0 / c + 1e-6, sumY * 1.0 / c));
+        }
+
+        return stores;
     }
 }
 
@@ -47,7 +79,7 @@ class House {
     }
 }
 
-class Distance {
+class Distance implements Comparable<Distance> {
 
     House a, b;
 
@@ -58,6 +90,16 @@ class Distance {
         this.b = b;
         // Square Euclidean distance, to avoid floating-point errors
         this.distance = (long) (a.x - b.x) * (a.x - b.x) + (long) (a.y - b.y) * (a.y - b.y);
+    }
+
+    public String toString() {
+        return "distance: " + String.valueOf(this.distance);
+    }
+
+
+    @Override
+    public int compareTo(Distance d) {
+        return Long.compare(this.distance, d.distance);
     }
 }
 
